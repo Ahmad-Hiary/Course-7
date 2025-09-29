@@ -42,9 +42,10 @@ int main()
 
     Fill3x3MatrixWhithRandomNumbers(x);
 
-    cout << "This is a 3x3 matrix whith random numbers : \n";
+    cout << "This is a 3x3 matrix whith random numbers : \n\n";
 
     PrintMatrix(x);
 
 }
+
 
