@@ -34,7 +34,7 @@ void PrintMatrix(short x[3][3])
     }
 }
 
-short RowSum(short x[3][3],short row ,short cols)
+short RowSum(short x[3][3], short row, short cols)
 {
     short sum = 0;
 
@@ -47,11 +47,11 @@ short RowSum(short x[3][3],short row ,short cols)
 
 }
 
-void PrintSumOfRowsInMatrix(short x[3][3])
+void PrintSumOfRowsInMatrix(short x[3][3], short Row,short Cols)
 {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < Cols; i++)
     {
-        cout << "The sum of row " << i + 1 << " = " << RowSum(x, i, 3) << endl;
+        cout << "The sum of row " << i + 1 << " = " << RowSum(x, i, Cols) << endl;
     }
 }
 
@@ -67,6 +67,6 @@ int main()
 
     PrintMatrix(x);
 
-    PrintSumOfRowsInMatrix(x);
+    PrintSumOfRowsInMatrix(x,3,3);
 
 }
