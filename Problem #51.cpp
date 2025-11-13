@@ -127,17 +127,21 @@ bool FindClientByAccountNumber(string AccountNumber, vector <strClientData> vCli
     return false;
 }
 
-void MarkClient(string AccountNumber, vector <strClientData>& vClients)
+strClientData ChangeClient(string AccountNumber)
 {
-    for (strClientData& c : vClients)
-    {
-        if (c.AccountNumber == AccountNumber)
-        {
-            c.ClientMark = true;
-            c.up = 'y';
-        }
-    }
+    strClientData c;
+
+    c.AccountNumber = AccountNumber;
+
+    cout << "\nPlease enter Pin Code : ";
+    getline(cin >> ws, c.PinCode);
+    c.Name = ReadString("\nPlease enter Name : ");
+    c.Phone = ReadString("\nPlease enter Phone : ");
+    c.AccountBalance = stod(ReadString("\nPlease enter Account Balance : "));
+
+    return c;
 }
+
 
 void SaveClientToFile(string FileName, vector <strClientData> vClients)
 {
@@ -221,7 +225,7 @@ void PrintAllClientsData(vector <strClientData> vClients)
 }
 
 
-void UpdateClient(string AccountNumber , vector <strClientData> vClients)
+bool UpdateClient(string AccountNumber , vector <strClientData>& vClients)
 {
     strClientData Client;
     char Answer = 'y';
@@ -236,18 +240,28 @@ void UpdateClient(string AccountNumber , vector <strClientData> vClients)
         if (Answer == 'y' || Answer == 'Y')
         {
             
+            for (strClientData& c : vClients)
+            {
+                if (c.AccountNumber == AccountNumber)
+                {
+                    c = ChangeClient(AccountNumber);
+                    break;
+                }
+            }
 
-            MarkClient(AccountNumber, vClients);
+            
             SaveClientToFile(ClientDataFile, vClients);
 
-            vClients = LoadClientDataFromFile(ClientDataFile);
 
             cout << "\nCLient updated succfully .";
+            return 1;
         }
     }
     else
     {
         cout << "\nClient not found !!";
+
+        return 0;
     }
 
 }
@@ -263,6 +277,9 @@ int main()
     string AccountNumber = ReadString("\n\nPlease enter Account Number to Update : ");
 
     UpdateClient(AccountNumber, vClientsData);
+
+    
+
 
     cout << "\n";
     system("pause>0");
